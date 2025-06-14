@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smash Prime Burgers - Delivery</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-background">
+            <img src="https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop" alt="Smash Prime Burgers" class="background-image">
+            <div class="welcome-overlay"></div>
+        </div>
+        
+        <div class="welcome-content">
+            <div class="welcome-header">
+                <div class="logo-container">
+                    <!-- COLOQUE SEU LOGO AQUI - Substitua o src pelo caminho do seu logo PNG -->
+                    <img src="./freepik__upload__76232-removebg-preview.png" alt="Logo da Hamburgueria" class="custom-logo">
+                    <!-- FIM DA ÁREA DO LOGO -->
+                </div>
+                <p class="restaurant-tagline">Hambúrgueres artesanais premium</p>
+            </div>
+
+            <div class="delivery-info">
+                <div class="delivery-badge">
+                    <i class="fas fa-motorcycle"></i>
+                    <span>Entregamos em Arapongas</span>
+                </div>
+            </div>
+
+            <div class="neighborhood-selection">
+                <h2>Selecione seu bairro</h2>
+                <p>Para calcularmos o valor da entrega</p>
+                
+                <div class="search-container">
+                    <input type="text" id="neighborhoodSearch" placeholder="Digite o nome do seu bairro..." class="search-input">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+
+                <div class="neighborhoods-grid" id="neighborhoodsGrid">
+                    <!-- Neighborhoods will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App (Hidden initially) -->
+    <div class="main-app" id="mainApp" style="display: none;">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="restaurant-info">
+                        <div class="restaurant-title-section">
+                            <h1><i class="fas fa-hamburger"></i> Smash Prime Burgers</h1>
+                            <p class="subtitle">Hambúrgueres artesanais premium</p>
+                        </div>
+                        <div class="restaurant-details">
+                            <span class="rating"><i class="fas fa-star"></i> 4.8</span>
+                            <span class="delivery-time"><i class="fas fa-clock"></i> 25-35 min</span>
+                            <span class="delivery-fee" id="deliveryFeeDisplay"><i class="fas fa-motorcycle"></i> Entrega R$ 4,99</span>
+                            <span class="selected-neighborhood" id="selectedNeighborhood">
+                                <i class="fas fa-map-marker-alt"></i> <span id="neighborhoodName">Centro</span>
+                            </span>
+                            <button class="change-address-btn" id="changeAddressBtn">
+                                <i class="fas fa-edit"></i> Mudar Endereço
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Floating Cart -->
+        <div class="floating-cart" id="floatingCart">
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge" id="floatingCartCount">0</span>
+            </div>
+            <div class="cart-info">
+                <div class="cart-total" id="floatingCartTotal">R$ 0,00</div>
+                <div class="cart-text">Ver Carrinho</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="container">
+                <!-- Menu Sections -->
+                <section class="menu-section" id="hamburgueres">
+                    <h2 class="section-title">Hambúrgueres</h2>
+                    <div class="menu-grid">
+                        <div class="menu-item">
+                            <div class="item-image">
+                                <img src="https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" alt="Classic Smash">
+                            </div>
+                            <div class="item-content">
+                                <h3>Classic Smash</h3>
+                                <p class="item-description">Blend bovino 150g, queijo cheddar, alface, tomate, cebola roxa e molho especial</p>
+                                <div class="item-footer">
+                                    <span class="price">R$ 26,90</span>
+                                    <button class="add-btn" data-name="Classic Smash" data-price="26.90" data-image="https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" data-category="hamburgueres">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        Adicionar ao Carrinho
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <div class="item-image">
+                                <img src="https://images.pexels.com/photos/3738730/pexels-photo-3738730.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" alt="Bacon Prime">
+                            </div>
+                            <div class="item-content">
+                                <h3>Bacon Prime</h3>
+                                <p class="item-description">Blend bovino 150g, bacon crocante, queijo cheddar duplo, cebola caramelizada</p>
+                                <div class="item-footer">
+                                    <span class="price">R$ 32,90</span>
+                                    <button class="add-btn" data-name="Bacon Prime" data-price="32.90" data-image="https://images.pexels.com/photos/3738730/pexels-photo-3738730.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" data-category="hamburgueres">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        Adicionar ao Carrinho
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <div class="item-image">
+                                <img src="https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" alt="Smash Duplo">
+                            </div>
+                            <div class="item-content">
+                                <h3>Smash Duplo</h3>
+                                <p class="item-description">Dois blends bovinos 150g cada, queijo cheddar triplo, molho barbecue artesanal</p>
+                                <div class="item-footer">
+                                    <span class="price">R$ 38,90</span>
+                                    <button class="add-btn" data-name="Smash Duplo" data-price="38.90" data-image="https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" data-category="hamburgueres">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        Adicionar ao Carrinho
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <div class="item-image">
+                                <img src="https://images.pexels.com/photos/3738730/pexels-photo-3738730.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" alt="Chicken Smash">
+                            </div>
+                            <div class="item-content">
+                                <h3>Chicken Smash</h3>
+                                <p class="item-description">Peito de frango empanado, queijo prato, alface americana, tomate e maionese temperada</p>
+                                <div class="item-footer">
+                                    <span class="price">R$ 24,90</span>
+                                    <button class="add-btn" data-name="Chicken Smash" data-price="24.90" data-image="https://images.pexels.com/photos/3738730/pexels-photo-3738730.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" data-category="hamburgueres">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        Adicionar ao Carrinho
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <div class="item-image">
+                                <img src="https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" alt="Veggie Smash">
+                            </div>
+                            <div class="item-content">
+                                <h3>Veggie Smash</h3>
+                                <p class="item-description">Hambúrguer de grão-de-bico e quinoa, queijo vegano, rúcula, tomate seco</p>
+                                <div class="item-footer">
+                                    <span class="price">R$ 28,90</span>
+                                    <button class="add-btn" data-name="Veggie Smash" data-price="28.90" data-image="https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" data-category="hamburgueres">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        Adicionar ao Carrinho
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="menu-section" id="acompanhamentos">
+                    <h2 class="section-title">Acompanhamentos</h2>
+                    <div class="menu-grid">
+                        <div class="menu-item">
+                            <div class="item-image">
+                                <img src="https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" alt="Batata Rústica">
+                            </div>
+                            <div class="item-content">
+                                <h3>Batata Rústica</h3>
+                                <p class="item-description">Batatas cortadas na casa, temperadas com ervas finas e sal grosso</p>
+                                <div class="item-footer">
+                                    <span class="price">R$ 12,00</span>
+                                    <button class="add-btn" data-name="Batata Rústica" data-price="12.00" data-image="https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" data-category="acompanhamentos">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        Adicionar ao Carrinho
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <div class="item-image">
+                                <img src="https://images.pexels.com/photos/4518843/pexels-photo-4518843.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" alt="Onion Rings">
+                            </div>
+                            <div class="item-content">
+                                <h3>Onion Rings</h3>
+                                <p class="item-description">Anéis de cebola empanados e fritos, acompanha molho barbecue</p>
+                                <div class="item-footer">
+                                    <span class="price">R$ 14,90</span>
+                                    <button class="add-btn" data-name="Onion Rings" data-price="14.90" data-image="https://images.pexels.com/photos/4518843/pexels-photo-4518843.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" data-category="acompanhamentos">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        Adicionar ao Carrinho
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <div class="item-image">
+                                <img src="https://images.pexels.com/photos/60616/fried-chicken-chicken-fried-crunchy-60616.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" alt="Nuggets Premium">
+                            </div>
+                            <div class="item-content">
+                                <h3>Nuggets Premium</h3>
+                                <p class="item-description">8 unidades de nuggets de frango empanados, acompanha molho honey mustard</p>
+                                <div class="item-footer">
+                                    <span class="price">R$ 16,90</span>
+                                    <button class="add-btn" data-name="Nuggets Premium" data-price="16.90" data-image="https://images.pexels.com/photos/60616/fried-chicken-chicken-fried-crunchy-60616.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" data-category="acompanhamentos">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        Adicionar ao Carrinho
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="menu-section" id="bebidas">
+                    <h2 class="section-title">Bebidas</h2>
+                    <div class="menu-grid">
+                        <div class="menu-item">
+                            <div class="item-image">
+                                <img src="https://images.pexels.com/photos/103566/pexels-photo-103566.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" alt="Milkshake de Oreo">
+                            </div>
+                            <div class="item-content">
+                                <h3>Milkshake de Oreo</h3>
+                                <p class="item-description">Cremoso milkshake com biscoitos Oreo, chantilly e calda de chocolate</p>
+                                <div class="item-footer">
+                                    <span class="price">R$ 14,00</span>
+                                    <button class="add-btn" data-name="Milkshake de Oreo" data-price="14.00" data-image="https://images.pexels.com/photos/103566/pexels-photo-103566.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" data-category="bebidas">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        Adicionar ao Carrinho
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <div class="item-image">
+                                <img src="https://images.pexels.com/photos/2775860/pexels-photo-2775860.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" alt="Refrigerante Lata">
+                            </div>
+                            <div class="item-content">
+                                <h3>Refrigerante Lata</h3>
+                                <p class="item-description">Coca-Cola, Guaraná Antarctica, Fanta Laranja ou Sprite - 350ml</p>
+                                <div class="item-footer">
+                                    <span class="price">R$ 5,50</span>
+                                    <button class="add-btn" data-name="Refrigerante Lata" data-price="5.50" data-image="https://images.pexels.com/photos/2775860/pexels-photo-2775860.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop" data-category="bebidas" data-has-options="true">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        Adicionar ao Carrinho
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Store Information -->
+                <section class="store-info">
+                    <h2><i class="fas fa-store"></i> Informações da Loja</h2>
+                    <div class="store-details">
+                        <div class="detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h3>Endereço</h3>
+                            <p>Rua dos Hambúrgueres, 123<br>Centro - Arapongas, PR<br>CEP: 86701-000</p>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <h3>Horário de Funcionamento</h3>
+                            <p>Segunda a Domingo<br>18:00 às 23:30<br>Delivery até 23:00</p>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-phone"></i>
+                            <h3>Contato</h3>
+                            <p>WhatsApp: (43) 92001-1899<br>Telefone: (43) 3456-7890<br>Email: contato@smashprime.com</p>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-motorcycle"></i>
+                            <h3>Área de Entrega</h3>
+                            <p>Toda Arapongas<br>Taxa varia por distância<br>Tempo médio: 25-35 min</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" title="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Drink Selection Modal -->
+    <div class="drink-selection-modal" id="drinkSelectionModal">
+        <div class="drink-selection-content">
+            <div class="drink-selection-header">
+                <h3>Escolha seu Refrigerante</h3>
+                <button class="close-drink-selection" id="closeDrinkSelection">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="drink-selection-body">
+                <div class="drink-options">
+                    <div class="drink-option" data-drink="Coca-Cola">
+                        <div class="drink-option-image">
+                            <i class="fas fa-wine-bottle" style="color: #dc143c;"></i>
+                        </div>
+                        <div class="drink-option-name">Coca-Cola</div>
+                    </div>
+                    <div class="drink-option" data-drink="Guaraná Antarctica">
+                        <div class="drink-option-image">
+                            <i class="fas fa-wine-bottle" style="color: #32d74b;"></i>
+                        </div>
+                        <div class="drink-option-name">Guaraná Antarctica</div>
+                    </div>
+                    <div class="drink-option" data-drink="Fanta Laranja">
+                        <div class="drink-option-image">
+                            <i class="fas fa-wine-bottle" style="color: #ff8c00;"></i>
+                        </div>
+                        <div class="drink-option-name">Fanta Laranja</div>
+                    </div>
+                    <div class="drink-option" data-drink="Sprite">
+                        <div class="drink-option-image">
+                            <i class="fas fa-wine-bottle" style="color: #32d74b;"></i>
+                        </div>
+                        <div class="drink-option-name">Sprite</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customization Modal -->
+    <div class="customization-modal" id="customizationModal">
+        <div class="customization-content">
+            <div class="customization-header">
+                <h3 id="customizationTitle">Personalizar Item</h3>
+                <button class="close-customization" id="closeCustomization">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="customization-body">
+                <div class="customization-section">
+                    <h4><i class="fas fa-plus-circle"></i> Adicionais</h4>
+                    <div id="addonsContainer">
+                        <!-- Addons will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="special-instructions">
+                    <label for="specialInstructions">
+                        <i class="fas fa-comment"></i> Observações Especiais
+                    </label>
+                    <textarea id="specialInstructions" placeholder="Ex: Sem cebola, ponto da carne bem passado, etc."></textarea>
+                </div>
+            </div>
+
+            <div class="customization-footer">
+                <div class="customization-total">
+                    <span>Total:</span>
+                    <span id="customizationTotal">R$ 0,00</span>
+                </div>
+                <button class="add-to-cart-btn" id="addToCartBtn">
+                    <i class="fas fa-shopping-cart"></i>
+                    Adicionar ao Carrinho
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2><i class="fas fa-shopping-cart"></i> Seu Pedido</h2>
+                <button class="close-cart" id="closeCart">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="cart-body">
+                <div class="cart-items" id="cartItems">
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Seu carrinho está vazio</p>
+                        <small>Adicione itens do cardápio</small>
+                    </div>
+                </div>
+
+                <div class="cart-form" id="cartForm" style="display: none;">
+                    <h3><i class="fas fa-user"></i> Dados para Entrega</h3>
+                    
+                    <div class="form-group">
+                        <label for="customerName">Nome Completo *</label>
+                        <input type="text" id="customerName" placeholder="Digite seu nome completo" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerAddress">Endereço de Entrega *</label>
+                        <textarea id="customerAddress" rows="3" placeholder="Rua, número, complemento" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paymentMethod">Forma de Pagamento *</label>
+                        <select id="paymentMethod" required>
+                            <option value="">Selecione a forma de pagamento</option>
+                            <option value="pix">PIX</option>
+                            <option value="cartao">Cartão (na entrega)</option>
+                            <option value="dinheiro">Dinheiro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="changeGroup" style="display: none;">
+                        <label>
+                            <input type="checkbox" id="needChange"> Preciso de troco
+                        </label>
+                        <div id="changeAmount" style="display: none;">
+                            <input type="number" id="changeValue" placeholder="Troco para quanto?" step="0.01" min="0">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="orderNotes">Observações (opcional)</label>
+                        <textarea id="orderNotes" rows="2" placeholder="Alguma observação sobre seu pedido?"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-summary">
+                    <div class="summary-line">
+                        <span>Subtotal</span>
+                        <span id="subtotal">R$ 0,00</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Taxa de entrega</span>
+                        <span id="deliveryFeeCart">R$ 4,99</span>
+                    </div>
+                    <div class="summary-line total">
+                        <span>Total</span>
+                        <span id="cartTotal">R$ 4,99</span>
+                    </div>
+                </div>
+                
+                <button class="checkout-btn" id="checkoutBtn" disabled>
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Finalizar Pedido</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal">
+        <div class="success-content">
+            <i class="fas fa-check-circle"></i>
+            <h3>Pedido Enviado!</h3>
+            <p id="successMessage">Seu pedido foi enviado com sucesso para o restaurante</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
